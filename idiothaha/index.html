@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kamu Idiot😂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* --- Neobrutalism Base Variables --- */
+    :root {
+        --color-bg-light: #f7f7f7; /* Off-White/Light Gray */
+        --color-primary: #a7f3d0; /* Lime Green Accent */
+        --color-secondary: #3b82f6; /* Electric Blue Accent */
+        --color-tertiary: #fbcfe8; /* Soft Pink Accent */
+        --color-dark-text: #1d1d1d;
+        --color-shadow-base: #3b3b3b;
+        --color-grid-line: #ececec; 
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-bg-light); 
+      background-image: linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--color-dark-text);
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Mencegah scroll */
+    }
+    
+    /* --- Neobrutalism Box Styling --- */
+    .neobox {
+      border: 2px solid var(--color-dark-text);
+      box-shadow: 4px 4px 0 var(--color-shadow-base);
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .neobtn {
+      border: 2px solid var(--color-dark-text);
+      box-shadow: 3px 3px 0 var(--color-shadow-base);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .neobtn:active {
+      box-shadow: 0 0 0 var(--color-shadow-base);
+      transform: translate(3px, 3px);
+    }
+
+    /* Override untuk Button Utama */
+    .neobtn-primary {
+        background-color: var(--color-secondary); /* Electric Blue */
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        box-shadow: 4px 4px 0 var(--color-dark-text); /* Shadow lebih tebal */
+    }
+    .neobtn-primary:active {
+        box-shadow: 0 0 0 var(--color-dark-text);
+        transform: translate(4px, 4px);
+    }
+
+    /* Video fullscreen */
+    #special-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover; /* Agar video memenuhi layar tanpa distorsi */
+      z-index: 1;
+      display: none; /* Sembunyikan sampai play */
+    }
+
+    /* Overlay awal untuk klik play */
+    #start-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(247, 247, 247, 0.9); /* Semi-transparan */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      cursor: pointer;
+    }
+    #start-overlay h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 2rem;
+      color: var(--color-dark-text);
+    }
+
+    /* Overlay setelah video selesai */
+    #after-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(247, 247, 247, 0.9); /* Semi-transparan */
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    #after-video h2 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 2rem;
+      color: var(--color-dark-text);
+    }
+  </style>
+</head>
+<body>
+
+  <video id="special-video">
+    <source src="https://e.top4top.io/m_3692yj5qy1.mp4" type="video/mp4">
+    Browser Anda tidak mendukung tag video.
+  </video>
+
+  <div id="start-overlay">
+    <h2>Klik Layarmu</h2>
+  </div>
+
+  <div id="after-video">
+    <h2>HAHAHA</h2>
+    <a href="/" class="neobtn neobtn-primary py-3 px-6">Balik ke Beranda</a>
+  </div>
+
+  <script>
+    const video = document.getElementById('special-video');
+    const startOverlay = document.getElementById('start-overlay');
+    const afterVideo = document.getElementById('after-video');
+
+    // Klik overlay untuk mulai video dengan suara
+    startOverlay.addEventListener('click', () => {
+      startOverlay.style.display = 'none';
+      video.style.display = 'block';
+      video.play(); // Play dengan suara
+    });
+
+    // Mencegah pause
+    video.addEventListener('pause', () => {
+      video.play();
+    });
+
+    // Ketika video selesai
+    video.addEventListener('ended', () => {
+      afterVideo.style.display = 'flex';
+    });
+  </script>
+
+</body>
+</html>
