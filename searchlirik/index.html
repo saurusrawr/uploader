@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cari Lirik Lagu - Saurus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* --- Neobrutalism Base Variables --- */
+    :root {
+        --color-bg-light: #f7f7f7; /* Off-White/Light Gray */
+        --color-primary: #a7f3d0; /* Lime Green Accent */
+        --color-secondary: #3b82f6; /* Electric Blue Accent */
+        --color-tertiary: #fbcfe8; /* Soft Pink Accent */
+        --color-dark-text: #1d1d1d;
+        --color-shadow-base: #3b3b3b;
+        --color-grid-line: #ececec; 
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-bg-light); 
+      background-image: linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--color-dark-text);
+      min-height: 100vh;
+    }
+    
+    /* --- Neobrutalism Box Styling --- */
+    .neobox {
+      border: 2px solid var(--color-dark-text);
+      box-shadow: 4px 4px 0 var(--color-shadow-base);
+      border-radius: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .neobtn {
+      border: 2px solid var(--color-dark-text);
+      box-shadow: 3px 3px 0 var(--color-shadow-base);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.1s ease-in-out;
+    }
+
+    .neobtn:active {
+      box-shadow: 0 0 0 var(--color-shadow-base);
+      transform: translate(3px, 3px);
+    }
+
+    /* Override untuk Button Utama */
+    .neobtn-primary {
+        background-color: var(--color-secondary); /* Electric Blue */
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        box-shadow: 4px 4px 0 var(--color-dark-text); /* Shadow lebih tebal */
+    }
+    .neobtn-primary:active {
+        box-shadow: 0 0 0 var(--color-dark-text);
+        transform: translate(4px, 4px);
+    }
+
+    /* Gradient Text dihapus atau diubah menjadi kontras solid */
+    .gradient-text {
+      color: var(--color-dark-text);
+      font-weight: 900;
+      /* Memastikan teks tidak terpotong */
+      line-height: 1; 
+    }
+
+    /* Typewriter effect disederhanakan/disesuaikan */
+    .typewriter h1 {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
+      /* Mengubah warna border cursor */
+      border-right: .15em solid var(--color-primary);
+      /* Memastikan teks tidak terpotong */
+      line-height: 1;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--color-primary); }
+    }
+
+    /* Fade-in animations (dapat dipertahankan) */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up-1 { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+    .fade-in-up-2 { animation: fadeInUp 0.5s ease-out 0.2s forwards; opacity: 0; }
+    .fade-in-up-3 { animation: fadeInUp 0.5s ease-out 0.4s forwards; opacity: 0; }
+    .fade-in-up-4 { animation: fadeInUp 0.5s ease-out 0.6s forwards; opacity: 0; }
+    .fade-in-up-5 { animation: fadeInUp 0.5s ease-out 0.8s forwards; opacity: 0; }
+    
+    /* Quote Block Neobrutalism */
+    .quote-block {
+      background-color: white; /* Kontras dengan latar belakang */
+      padding: 1.5rem; /* Padding sedikit lebih besar */
+      border: 2px solid var(--color-dark-text);
+      box-shadow: 4px 4px 0 var(--color-primary); /* Shadow dengan warna primer */
+      border-radius: 8px;
+    }
+    .quote-block p {
+        color: var(--color-dark-text);
+    }
+    .quote-block .quote-author {
+        color: #666; /* Warna abu-abu yang lebih halus */
+        font-weight: 600;
+    }
+
+    /* Loader - dipertahankan dengan warna Neobrutalism */
+    #loader {
+        background-color: var(--color-bg-light);
+    }
+    #loader .animate-spin {
+        border-color: rgba(29, 29, 29, 0.5); /* Abu-abu gelap */
+        border-top-color: var(--color-secondary); /* Warna aksen biru */
+    }
+
+    /* Header Styling */
+    .header-neobox {
+        background-color: var(--color-bg-light); 
+        border-bottom: 2px solid var(--color-dark-text);
+        box-shadow: 0 4px 0 var(--color-shadow-base); 
+        border-radius: 0 0 8px 8px; /* Border bawah bulat */
+        padding: 12px 0; /* Padding lebih kecil */
+        position: relative; /* Untuk positioning ikon */
+        transition: all 0.3s;
+    }
+
+    .nav-link {
+        color: var(--color-dark-text);
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background-color 0.1s, box-shadow 0.1s;
+    }
+    .nav-link:hover {
+        background-color: var(--color-tertiary); /* Warna pink */
+        box-shadow: 2px 2px 0 var(--color-dark-text);
+    }
+    .menu-toggle-btn {
+        color: var(--color-dark-text);
+        background-color: var(--color-primary); /* Latar belakang hijau limau */
+        padding: 6px 10px;
+        border: 2px solid var(--color-dark-text);
+        box-shadow: 3px 3px 0 var(--color-shadow-base);
+        border-radius: 8px;
+    }
+    .menu-toggle-btn:active {
+        box-shadow: 0 0 0 var(--color-shadow-base);
+        transform: translate(3px, 3px);
+    }
+
+    /* Mobile Menu */
+    #mobile-menu {
+        background-color: var(--color-bg-light);
+        border-top: 2px solid var(--color-dark-text);
+        box-shadow: 0 -4px 0 var(--color-shadow-base);
+    }
+
+    /* Ikon placeholder di header */
+    .header-icon-placeholder {
+        position: absolute;
+        top: 20px; /* Sesuaikan posisi vertikal */
+        left: 20px; /* Sesuaikan posisi horizontal */
+        width: 40px;
+        height: 40px;
+        background-color: var(--color-tertiary); /* Warna pink */
+        border: 2px solid var(--color-dark-text);
+        box-shadow: 2px 2px 0 var(--color-shadow-base);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: var(--color-dark-text);
+        transform: rotate(-10deg); /* Sedikit rotasi */
+    }
+
+    /* Styling untuk hasil lirik */
+    .lyrics-result {
+      border: 2px solid var(--color-dark-text);
+      box-shadow: 4px 4px 0 var(--color-shadow-base);
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: white;
+      margin-top: 2rem;
+    }
+    .lyrics-result img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .lyrics-content {
+      padding: 1rem;
+    }
+    .lyrics-text {
+      white-space: pre-line;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <div id="loader" class="fixed inset-0 flex items-center justify-center z-[9999] transition-opacity duration-500">
+    <div class="w-16 h-16 border-4 border-t-blue-500 border-gray-800 rounded-full animate-spin"></div>
+  </div>
+  
+  <header class="fixed top-0 left-0 right-0 z-50 header-neobox">
+    <div class="container mx-auto flex items-center justify-between px-6">
+      <div class="header-icon-placeholder hidden md:flex">
+          <i class="fas fa-music"></i> </div>
+      <h1 class="text-2xl font-black tracking-wider gradient-text ml-0 md:ml-16">Cari Lirik Lagu</h1>
+      <nav class="hidden md:flex items-center space-x-6 text-base">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/cweb" class="nav-link">Buat website</a>
+        <a href="/aichat" class="nav-link">Chat dengan Ai</a>
+        <a href="/katakata" class="nav-link">Kata kata motivasi</a>
+        <a href="/carigambar" class="nav-link">Cari gambar</a>
+      </nav>
+      <button onclick="toggleMenu()" class="md:hidden focus:outline-none text-2xl menu-toggle-btn">
+        &#9776; </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden flex-col items-center py-4 space-y-4">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/cweb" class="nav-link">Buat website</a>
+        <a href="/aichat" class="nav-link">Chat Dengan Ai</a>
+        <a href="/katakata" class="nav-link">Kata kata motivasi</a>
+        <a href="/carigambar" class="nav-link">Cari gambar</a>
+    </div>
+  </header>
+
+  <main id="hero" class="min-h-screen flex items-center justify-center px-4 pt-32 pb-10">
+    <div class="w-full max-w-2xl flex flex-col items-center text-center space-y-8">
+      
+      <h2 class="text-sm font-black tracking-widest text-dark-text uppercase fade-in-up-1 bg-white neobox py-1 px-4"
+          style="box-shadow: 3px 3px 0 var(--color-secondary);"> Cari Lirik Lagu
+      </h2>
+      
+      <div class="typewriter fade-in-up-2">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-dark-text" style="word-break: break-word;">
+          Cari Lirik Lagu
+        </h1>
+      </div>
+      
+      <p class="text-dark-text text-lg md:text-xl leading-relaxed max-w-lg fade-in-up-3">
+        Masukkan judul lagu untuk mencari liriknya.
+      </p>
+      
+      <form id="search-form" class="w-full max-w-lg fade-in-up-4">
+        <div class="flex space-x-4">
+          <input type="text" id="query" placeholder="Contoh: bergema sampai selamanya" class="flex-1 px-4 py-3 border-2 border-gray-800 rounded-lg neobox" required>
+          <button type="submit" class="neobtn neobtn-primary py-3 px-6">Cari</button>
+        </div>
+      </form>
+      
+      <div id="results" class="w-full max-w-2xl fade-in-up-5 hidden">
+        <!-- Hasil lirik akan ditampilkan di sini -->
+      </div>
+      
+      <div id="loading" class="hidden fade-in-up-5">
+        <div class="w-16 h-16 border-4 border-t-blue-500 border-gray-800 rounded-full animate-spin mx-auto"></div>
+        <p class="mt-4 text-dark-text">Memuat lirik...</p>
+      </div>
+      
+      <div id="error" class="hidden fade-in-up-5 quote-block w-full max-w-lg">
+        <p>Terjadi kesalahan saat mencari lirik. Coba lagi nanti.</p>
+      </div>
+      
+      <div class="fade-in-up-5 text-center mt-8">
+        <p class="text-dark-text text-sm">Pencipta: Saurus</p>
+      </div>
+      
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    }
+
+    // Fungsi untuk mencari lirik menggunakan CORS proxy
+    async function searchLyrics(query) {
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const errorDiv = document.getElementById('error');
+
+      // Sembunyikan hasil dan error sebelumnya
+      resultsDiv.classList.add('hidden');
+      errorDiv.classList.add('hidden');
+      loadingDiv.classList.remove('hidden');
+
+      try {
+        // Menggunakan CORS proxy allorigins.win
+        const proxyUrl = 'https://api.allorigins.win/get?url=';
+        const apiUrl = encodeURIComponent(`https://chocomilk.amira.us.kg/v1/search/lyrics?query=${encodeURIComponent(query)}`);
+        const fullUrl = proxyUrl + apiUrl;
+
+        const res = await fetch(fullUrl);
+        if (!res.ok) throw new Error(`Proxy Error (${res.status})`);
+
+        const proxyData = await res.json();
+        const json = JSON.parse(proxyData.contents); // Parse the wrapped response
+
+        // Cek jika success
+        if (!json.success || json.code !== 200) throw new Error(json.error || 'API Error');
+
+        const data = json.data;
+        if (!data) throw new Error('Data tidak ditemukan.');
+
+        const lyrics = data.lyrics;
+        if (!lyrics || !Array.isArray(lyrics)) throw new Error('Lirik tidak tersedia.');
+
+        const lyricsText = lyrics.join("\n");
+        const title = data.title || "Unknown";
+        const artist = data.artist || "Unknown";
+        const album = data.album || "-";
+        const duration = data.duration || "-";
+        const thumbnail = "https://via.placeholder.com/300x200?text=No+Thumbnail"; // Placeholder
+
+        // Tampilkan hasil
+        resultsDiv.innerHTML = `
+          <div class="lyrics-result">
+            <img src="${thumbnail}" alt="Thumbnail Lagu">
+            <div class="lyrics-content">
+              <h3 class="text-xl font-bold">${title} — ${artist}</h3>
+              ${album !== "-" ? `<p><strong>Album:</strong> ${album}</p>` : ''}
+              ${duration !== "-" ? `<p><strong>Durasi:</strong> ${duration}s</p>` : ''}
+              <h4 class="text-lg font-semibold mt-4">Lirik Lagu:</h4>
+              <div class="lyrics-text">${lyricsText}</div>
+            </div>
+          </div>
+        `;
+        resultsDiv.classList.remove('hidden');
+      } catch (err) {
+        console.error(err);
+        errorDiv.querySelector('p').textContent = err.message || 'Terjadi kesalahan saat mencari lirik. Coba lagi nanti.';
+        errorDiv.classList.remove('hidden');
+      } finally {
+        loadingDiv.classList.add('hidden');
+      }
+    }
+
+    // Handle form submit
+    document.getElementById('search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const query = document.getElementById('query').value.trim();
+      if (query) {
+        searchLyrics(query);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('opacity-0');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }, 500);
+    });
+  </script>
+
+</body>
+</html>
