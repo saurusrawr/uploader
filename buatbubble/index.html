@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buat Logo Bubble - Saurus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* --- Neobrutalism Base Variables --- */
+    :root {
+        --color-bg-light: #f7f7f7; /* Off-White/Light Gray */
+        --color-primary: #a7f3d0; /* Lime Green Accent */
+        --color-secondary: #3b82f6; /* Electric Blue Accent */
+        --color-tertiary: #dbeafe; /* Light Blue Accent */
+        --color-dark-text: #1e3a8a; /* Dark Blue Text */
+        --color-shadow-base: #1e40af; /* Darker Blue Shadow */
+        --color-grid-line: #e0f2fe; 
+        --color-gradient: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); /* Blue Gradient */
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--color-gradient);
+      background-attachment: fixed;
+      background-size: cover;
+      color: var(--color-dark-text);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Overlay untuk efek megah */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(2px);
+      z-index: -1;
+    }
+
+    /* Particle effect for coolness */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+    }
+    .particle {
+      position: absolute;
+      background: rgba(59, 130, 246, 0.3);
+      border-radius: 50%;
+      animation: float 6s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    /* --- Neobrutalism Box Styling --- */
+    .neobox {
+      border: 4px solid var(--color-dark-text);
+      box-shadow: 8px 8px 0 var(--color-shadow-base);
+      border-radius: 16px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .neobox:hover {
+      transform: translate(-6px, -6px) scale(1.02);
+      box-shadow: 12px 12px 0 var(--color-shadow-base);
+    }
+
+    .neobtn {
+      border: 4px solid var(--color-dark-text);
+      box-shadow: 6px 6px 0 var(--color-shadow-base);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: var(--color-secondary);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .neobtn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .neobtn:hover::before {
+      left: 100%;
+    }
+
+    .neobtn:active {
+      box-shadow: 0 0 0 var(--color-shadow-base);
+      transform: translate(6px, 6px);
+    }
+
+    .neobtn-secondary {
+      background: var(--color-primary);
+      color: var(--color-dark-text);
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(45deg, #1e40af, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+    }
+
+    /* Typewriter effect */
+    .typewriter h1 {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 4s steps(40, end), blink-caret 1s step-end infinite;
+      border-right: .15em solid var(--color-primary);
+      line-height: 1.2;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--color-primary); }
+    }
+
+    /* Fade-in animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .fade-in-up-1 { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+    .fade-in-up-2 { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+    .fade-in-up-3 { animation: fadeInUp 0.8s ease-out 0.8s forwards; opacity: 0; }
+    .fade-in-up-4 { animation: fadeInUp 0.8s ease-out 1.2s forwards; opacity: 0; }
+    .fade-in-up-5 { animation: fadeInUp 0.8s ease-out 1.6s forwards; opacity: 0; }
+
+    /* Quote Block */
+    .quote-block {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2.5rem;
+      border: 4px solid var(--color-dark-text);
+      box-shadow: 8px 8px 0 var(--color-primary);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Loader */
+    #loader {
+      background: var(--color-gradient);
+    }
+    #loader .animate-spin {
+      border-color: rgba(255, 255, 255, 0.5);
+      border-top-color: var(--color-secondary);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+
+    /* Header */
+    .header-neobox {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 4px solid var(--color-dark-text);
+      box-shadow: 0 8px 0 var(--color-shadow-base);
+      border-radius: 0 0 16px 16px;
+      padding: 20px 0;
+      position: relative;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-link {
+      color: var(--color-dark-text);
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+    .nav-link:hover {
+      background: var(--color-tertiary);
+      box-shadow: 4px 4px 0 var(--color-dark-text);
+      transform: translateY(-2px);
+    }
+    .menu-toggle-btn {
+      color: var(--color-dark-text);
+      background: var(--color-primary);
+      padding: 10px 14px;
+      border: 4px solid var(--color-dark-text);
+      box-shadow: 6px 6px 0 var(--color-shadow-base);
+      border-radius: 16px;
+    }
+    .menu-toggle-btn:active {
+      box-shadow: 0 0 0 var(--color-shadow-base);
+      transform: translate(6px, 6px);
+    }
+
+    /* Mobile Menu */
+    #mobile-menu {
+      background: rgba(255, 255, 255, 0.9);
+      border-top: 4px solid var(--color-dark-text);
+      box-shadow: 0 -8px 0 var(--color-shadow-base);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Header Icon */
+    .header-icon-placeholder {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      width: 60px;
+      height: 60px;
+      background: var(--color-tertiary);
+      border: 4px solid var(--color-dark-text);
+      box-shadow: 4px 4px 0 var(--color-shadow-base);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--color-dark-text);
+      transform: rotate(-10deg);
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: rotate(-10deg) translateY(0); }
+      40% { transform: rotate(-10deg) translateY(-10px); }
+      60% { transform: rotate(-10deg) translateY(-5px); }
+    }
+
+    /* Styling untuk hasil logo */
+    .logo-result {
+      border: 4px solid var(--color-dark-text);
+      box-shadow: 10px 10px 0 var(--color-shadow-base);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.95);
+      margin-top: 4rem;
+      position: relative;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .logo-result::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(59,130,246,0.1), rgba(30,64,175,0.05));
+      pointer-events: none;
+    }
+    .logo-result img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+    .logo-result img:hover {
+      transform: scale(1.05);
+    }
+    .logo-content {
+      padding: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .logo-content {
+        padding: 1.5rem;
+      }
+      .typewriter h1 {
+        font-size: 3rem;
+      }
+      .particles .particle {
+        display: none; /* Hide particles on mobile for performance */
+      }
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <div class="particles" id="particles"></div>
+
+  <div id="loader" class="fixed inset-0 flex items-center justify-center z-[9999] transition-opacity duration-500">
+    <div class="w-24 h-24 border-4 border-t-blue-500 border-gray-800 rounded-full animate-spin"></div>
+  </div>
+  
+  <header class="fixed top-0 left-0 right-0 z-50 header-neobox">
+    <div class="container mx-auto flex items-center justify-between px-6">
+      <div class="header-icon-placeholder hidden md:flex">
+          <i class="fas fa-palette"></i> </div>
+      <h1 class="text-4xl font-black tracking-wider gradient-text ml-0 md:ml-16">Buat Logo Bubble</h1>
+      <nav class="hidden md:flex items-center space-x-6 text-base">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/cweb" class="nav-link">Buat website</a>
+        <a href="/aichat" class="nav-link">Chat dengan Ai</a>
+        <a href="/katakata" class="nav-link">Kata kata motivasi</a>
+        <a href="/carigambar" class="nav-link">Cari gambar</a>
+      </nav>
+      <button onclick="toggleMenu()" class="md:hidden focus:outline-none text-2xl menu-toggle-btn">
+        &#9776; </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden flex-col items-center py-4 space-y-4">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/cweb" class="nav-link">Buat website</a>
+        <a href="/aichat" class="nav-link">Chat Dengan Ai</a>
+        <a href="/katakata" class="nav-link">Kata kata motivasi</a>
+        <a href="/carigambar" class="nav-link">Cari gambar</a>
+    </div>
+  </header>
+
+  <main id="hero" class="min-h-screen flex items-center justify-center px-4 pt-48 pb-10">
+    <div class="w-full max-w-5xl flex flex-col items-center text-center space-y-12">
+      
+      <h2 class="text-xl font-black tracking-widest text-white uppercase fade-in-up-1 bg-blue-900 neobox py-3 px-8"
+          style="box-shadow: 6px 6px 0 var(--color-secondary);">
+        Buat Logo Bubble
+      </h2>
+      
+      <div class="typewriter fade-in-up-2">
+        <h1 class="text-7xl md:text-9xl font-extrabold text-white" style="word-break: break-word; text-shadow: 6px 6px 0 var(--color-dark-text);">
+          Buat Logo Bubble
+        </h1>
+      </div>
+      
+      <p class="text-white text-2xl md:text-3xl leading-relaxed max-w-3xl fade-in-up-3 bg-blue-900 neobox py-5 px-8">
+        Masukkan teks untuk membuat logo bubble yang keren dengan tema biru megah!
+      </p>
+      
+      <form id="generate-form" class="w-full max-w-3xl fade-in-up-4">
+        <div class="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+          <input type="text" id="text-input" placeholder="Contoh: arfa jelek" class="flex-1 px-8 py-5 text-2xl border-4 border-blue-900 rounded-xl neobox bg-white" required>
+          <button type="submit" class="neobtn py-5 px-10 text-2xl">Buat Logo</button>
+        </div>
+      </form>
+      
+      <div id="results" class="w-full max-w-5xl fade-in-up-5 hidden">
+        <!-- Hasil logo akan ditampilkan di sini -->
+      </div>
+      
+      <div id="loading" class="hidden fade-in-up-5">
+        <div class="w-24 h-24 border-4 border-t-blue-500 border-gray-800 rounded-full animate-spin mx-auto"></div>
+        <p class="mt-8 text-white text-2xl bg-blue-900 neobox py-3 px-6">Membuat logo...</p>
+      </div>
+      
+      <div id="error" class="hidden fade-in-up-5 quote-block w-full max-w-3xl">
+        <p class="text-2xl">Terjadi kesalahan saat membuat logo. Coba lagi nanti.</p>
+      </div>
+      
+      <div class="fade-in-up-5 text-center mt-16">
+        <p class="text-white text-xl bg-blue-900 neobox py-3 px-6">Pencipta: Saurus</p>
+      </div>
+      
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    }
+
+    // Create floating particles for cool effect
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.width = Math.random() * 10 + 5 + 'px';
+        particle.style.height = particle.style.width;
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Fungsi untuk membuat logo menggunakan API
+    async function generateLogo(text) {
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const errorDiv = document.getElementById('error');
+
+      // Sembunyikan hasil dan error sebelumnya
+      resultsDiv.classList.add('hidden');
+      errorDiv.classList.add('hidden');
+      loadingDiv.classList.remove('hidden');
+
+      try {
+        const apiUrl = `https://saurushosting.my.id/api/bubblelogo?text=${encodeURIComponent(text)}&apikey=saurusdev`;
+        
+        // Asumsikan API mengembalikan gambar langsung, tampilkan sebagai img
+        resultsDiv.innerHTML = `
+          <div class="logo-result">
+            <div class="logo-content">
+              <h3 class="text-4xl font-bold mb-6">Logo untuk: ${text}</h3>
+                        <img src="${apiUrl}" alt="Logo Bubble" onerror="this.src='https://via.placeholder.com/400x300?text=Error+Loading+Logo'">
+          <div class="mt-8">
+            <button id="download-btn" class="neobtn neobtn-secondary py-4 px-8 text-xl">Download Logo</button>
+          </div>
+        </div>
+      </div>
+    `;
+    resultsDiv.classList.remove('hidden');
+
+    // Event listener untuk tombol download
+    document.getElementById('download-btn').addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.href = apiUrl;
+      link.download = `logo-${text}.png`; // Asumsikan PNG, sesuaikan jika perlu
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  } catch (err) {
+    console.error(err);
+    errorDiv.querySelector('p').textContent = 'Terjadi kesalahan saat membuat logo. Coba lagi nanti.';
+    errorDiv.classList.remove('hidden');
+  } finally {
+    loadingDiv.classList.add('hidden');
+  }
+}
+
+// Handle form submit
+document.getElementById('generate-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const text = document.getElementById('text-input').value.trim();
+  if (text) {
+    generateLogo(text);
+  }
+});
+
+window.addEventListener('load', () => {
+  createParticles();
+  setTimeout(() => {
+    const loader = document.getElementById('loader');
+    loader.classList.add('opacity-0');
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 500);
+  }, 500);
+});
+</script> </body> </html>
