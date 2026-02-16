@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saurus - Untuk sahabat/pacar/crush</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* --- Neobrutalism Base Variables (Disesuaikan untuk Variasi) --- */
+    :root {
+        --color-bg-light: #f0f0f0; /* Sedikit lebih terang */
+        --color-primary: #10b981; /* Hijau emerald sebagai aksen baru */
+        --color-secondary: #f59e0b; /* Oranye sebagai aksen utama */
+        --color-tertiary: #ec4899; /* Pink tetap */
+        --color-dark-text: #1f2937; /* Abu-abu gelap lebih lembut */
+        --color-shadow-base: #374151; /* Shadow lebih gelap */
+        --color-grid-line: #d1d5db; /* Grid lebih halus */
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-bg-light); 
+      background-image: linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+                        linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+      background-size: 25px 25px; /* Grid sedikit lebih besar */
+      color: var(--color-dark-text);
+      min-height: 100vh;
+    }
+    
+    /* --- Neobrutalism Box Styling --- */
+    .neobox {
+      border: 3px solid var(--color-dark-text); /* Border lebih tebal */
+      box-shadow: 5px 5px 0 var(--color-shadow-base); /* Shadow lebih dramatis */
+      border-radius: 12px; /* Radius lebih besar */
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .neobtn {
+      border: 3px solid var(--color-dark-text);
+      box-shadow: 4px 4px 0 var(--color-shadow-base);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out; /* Transisi sedikit lebih lambat */
+    }
+
+    .neobtn:active {
+      box-shadow: 0 0 0 var(--color-shadow-base);
+      transform: translate(4px, 4px);
+    }
+
+    /* Override untuk Button Utama */
+    .neobtn-primary {
+        background-color: var(--color-secondary); /* Oranye */
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        box-shadow: 5px 5px 0 var(--color-dark-text);
+    }
+    .neobtn-primary:active {
+        box-shadow: 0 0 0 var(--color-dark-text);
+        transform: translate(5px, 5px);
+    }
+
+    .neoredbtn {
+    background-color: #ef4444; /* Merah lebih terang */
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 5px 5px 0 var(--color-dark-text);
+    }
+    .neoredbtn:active {
+    box-shadow: 0 0 0 var(--color-dark-text);
+    transform: translate(5px, 5px);
+    }
+
+    /* Gradient Text dengan variasi */
+    .gradient-text {
+      background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    /* Typewriter effect dengan variasi */
+    .typewriter h1 {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 4s steps(30, end), blink-caret 1s step-end infinite; /* Durasi lebih lama */
+      border-right: .15em solid var(--color-primary);
+      line-height: 1;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: var(--color-primary); }
+    }
+
+    /* Fade-in animations dengan variasi */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); } /* Translate lebih besar */
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-up-1 { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+    .fade-in-up-2 { animation: fadeInUp 0.6s ease-out 0.3s forwards; opacity: 0; }
+    .fade-in-up-3 { animation: fadeInUp 0.6s ease-out 0.6s forwards; opacity: 0; }
+    .fade-in-up-4 { animation: fadeInUp 0.6s ease-out 0.9s forwards; opacity: 0; }
+    .fade-in-up-5 { animation: fadeInUp 0.6s ease-out 1.2s forwards; opacity: 0; }
+    
+    /* Quote Block dengan variasi */
+    .quote-block {
+      background-color: #ffffff; /* Putih murni */
+      padding: 2rem; /* Padding lebih besar */
+      border: 3px solid var(--color-dark-text);
+      box-shadow: 5px 5px 0 var(--color-primary);
+      border-radius: 12px;
+    }
+    .quote-block p {
+        color: var(--color-dark-text);
+    }
+    .quote-block .quote-author {
+        color: #6b7280; /* Abu-abu lebih gelap */
+        font-weight: 600;
+    }
+
+    /* Loader dengan variasi */
+    #loader {
+        background-color: var(--color-bg-light);
+    }
+    #loader .animate-spin {
+        border-color: rgba(31, 41, 55, 0.5);
+        border-top-color: var(--color-secondary);
+    }
+
+    /* Header Styling dengan variasi */
+    .header-neobox {
+        background-color: var(--color-bg-light); 
+        border-bottom: 3px solid var(--color-dark-text);
+        box-shadow: 0 5px 0 var(--color-shadow-base); 
+        border-radius: 0 0 12px 12px;
+        padding: 16px 0; /* Padding lebih besar */
+        position: relative;
+        transition: all 0.3s;
+    }
+
+    .nav-link {
+        color: var(--color-dark-text);
+        font-weight: 600;
+        padding: 6px 12px; /* Padding lebih besar */
+        border-radius: 6px;
+        transition: background-color 0.1s, box-shadow 0.1s;
+    }
+    .nav-link:hover {
+        background-color: var(--color-tertiary);
+        box-shadow: 3px 3px 0 var(--color-dark-text);
+    }
+    .menu-toggle-btn {
+        color: var(--color-dark-text);
+        background-color: var(--color-primary);
+        padding: 8px 12px;
+        border: 3px solid var(--color-dark-text);
+        box-shadow: 4px 4px 0 var(--color-shadow-base);
+        border-radius: 12px;
+    }
+    .menu-toggle-btn:active {
+        box-shadow: 0 0 0 var(--color-shadow-base);
+        transform: translate(4px, 4px);
+    }
+
+    /* Mobile Menu */
+    #mobile-menu {
+        background-color: var(--color-bg-light);
+        border-top: 3px solid var(--color-dark-text);
+        box-shadow: 0 -5px 0 var(--color-shadow-base);
+    }
+
+    /* Ikon placeholder dengan variasi */
+    .header-icon-placeholder {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        width: 48px; /* Lebih besar */
+        height: 48px;
+        background-color: var(--color-tertiary);
+        border: 3px solid var(--color-dark-text);
+        box-shadow: 3px 3px 0 var(--color-shadow-base);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--color-dark-text);
+        transform: rotate(10deg); /* Rotasi positif */
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden">
+
+  <div id="loader" class="fixed inset-0 flex items-center justify-center z-[9999] transition-opacity duration-500">
+    <div class="w-20 h-20 border-4 border-t-orange-500 border-gray-800 rounded-full animate-spin"></div>
+  </div>
+  
+  <header class="fixed top-0 left-0 right-0 z-50 header-neobox">
+    <div class="container mx-auto flex items-center justify-between px-6">
+      <div class="header-icon-placeholder hidden md:flex">
+          <i class="fas fa-heart"></i> <!-- Ikon berbeda -->
+      </div>
+      <h1 class="text-3xl font-black tracking-wider gradient-text ml-0 md:ml-20">Saurus</h1> <!-- Ukuran lebih besar -->
+      <nav class="hidden md:flex items-center space-x-6 text-base">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/pantunbuatmu" class="nav-link">Pantun</a>
+        <a href="/cieultah" class="nav-link">Untuk kamu</a>
+        <a href="/untukmu" class="nav-link">Pertanyaan</a>
+        <a href="/sukakkamu" class="nav-link">Suka kamu</a>
+        <a href="/pertanyaan" class="nav-link">Surat 2</a>
+      </nav>
+      <button onclick="toggleMenu()" class="md:hidden focus:outline-none text-2xl menu-toggle-btn">
+        &#9776; </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden flex-col items-center py-4 space-y-4">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/pantunbuatmu" class="nav-link">Pantun</a>
+        <a href="/cieultah" class="nav-link">Ulang tahun</a>
+        <a href="/untukmu" class="nav-link">untuk kamu</a>
+        <a href="/sukakkamu" class="nav-link">Suka kamu</a>
+        <a href="/pertanyaan" class="nav-link">Pertanyaan</a>
+    </div>
+  </header>
+
+  <main id="hero" class="min-h-screen flex items-center justify-center px-4 pt-40 pb-10"> <!-- Padding top lebih besar -->
+    <div class="w-full max-w-3xl flex flex-col items-center text-center space-y-10"> <!-- Space lebih besar -->
+      
+      <h2 class="text-base font-black tracking-widest text-dark-text uppercase fade-in-up-1 bg-white neobox py-2 px-6"
+          style="box-shadow: 4px 4px 0 var(--color-secondary);"> Selamat Datang di Dunia Kreatif
+      </h2>
+      
+      <div class="typewriter fade-in-up-2">
+        <h1 class="text-6xl md:text-8xl font-extrabold text-dark-text" style="word-break: break-word;">
+          Saurus
+        </h1>
+      </div>
+      
+      <p class="text-dark-text text-xl md:text-2xl leading-relaxed max-w-xl fade-in-up-3">
+        Saya <span class="font-extrabold text-dark-text">Saurus</span>, pencipta konten digital yang penuh inspirasi dan keceriaan.
+      </p>
+      
+      <div class="quote-block fade-in-up-4 w-full max-w-xl text-left">
+        <p id="quote-text" class="italic text-lg">"Memuat inspirasi..."</p>
+        <p id="quote-author" class="mt-3 text-right text-base font-bold quote-author">-</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 fade-in-up-5"> <!-- Gap lebih besar -->
+        <a href="/pantunbuatmu" class="neobtn neobtn-primary font-bold py-4 px-8 text-base tracking-wider">
+          Pantun
+        </a>
+        <a href="/cieultah" class="neobtn neobtn-primary font-bold py-4 px-8 text-base tracking-wider">
+          Ulang tahun
+        </a>
+        <a href="/untukmu" class="neobtn neobtn-primary font-bold py-4 px-8 text-base tracking-wider">
+          Untuk kamu
+        </a>
+        <a href="/sukakkamu" class="neobtn neobtn-primary font-bold py-4 px-8 text-base tracking-wider">
+          Suka kamu
+        </a>
+        <a href="/pertanyaan" class="neobtn neobtn-primary font-bold py-4 px-8 text-base tracking-wider">
+          Pertanyaan
+        </a>
+      </div>
+      
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('flex');
+    }
+
+    // Fungsi quote dengan variasi
+    async function getRandomQuote() {
+      const quoteTextElement = document.getElementById('quote-text');
+      const quoteAuthorElement = document.getElementById('quote-author');
+
+      try {
+        const response = await fetch('https://apikuu-black.vercel.app/quotes');
+        const result = await response.json();
+
+        if (result.motivasi && result.motivasi.length > 0) {
+          const quotesArray = result.motivasi;
+          const randomQuote = quotesArray[Math.floor(Math.random() * quotesArray.length)];
+          
+          quoteTextElement.textContent = `"${randomQuote}"`;
+          quoteAuthorElement.textContent = `- Inspirasi Saurus`;
+        } else {
+          quoteTextElement.textContent = '"Inspirasi sedang dimuat..."';
+          quoteAuthorElement.textContent = '- Sistem';
+        }
+      } catch (error) {
+        console.error('Error fetching quote:', error);
+        quoteTextElement.textContent = '"Koneksi inspirasi terganggu."';
+        quoteAuthorElement.textContent = '- Sistem';
+      }
+    }
+
+    window.addEventListener('load', () => {
+      getRandomQuote();
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('opacity-0');
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }, 600); // Durasi lebih lama
+    });
+  </script>
+
+</body>
+</html>
