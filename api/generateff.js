@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const COOLDOWN_FILE = '/tmp/cooldown.json';
-const COOLDOWN_DURATION = 3 * 60 * 1000; // 3 minutes
-
+const COOLDOWN_DURATION = 5 * 1000; // 5 seconds
 function getCooldown() {
     try {
         if (fs.existsSync(COOLDOWN_FILE)) {
