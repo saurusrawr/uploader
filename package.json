@@ -1,0 +1,13 @@
+{
+  "name": "saurus-uploader",
+  "version": "1.0.0",
+  "description": "Simple API uploader",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "formidable": "^3.5.0"
+  }
+}
