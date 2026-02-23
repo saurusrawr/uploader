@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Uploader Saurus</title>
+</head>
+<body>
+
+  <h2>Upload File</h2>
+
+  <form id="uploadForm">
+    <input type="file" name="file" required>
+    <br><br>
+    <button type="submit">Upload</button>
+  </form>
+
+  <br>
+  <div id="result"></div>
+
+  <script>
+    var form = document.getElementById("uploadForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      var formData = new FormData(form);
+
+      fetch("https://saurushoting.my.id/api/uploader", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status) {
+          document.getElementById("result").innerHTML =
+            "Berhasil:<br><a href='" + data.result + "' target='_blank'>" + data.result + "</a>";
+        } else {
+          document.getElementById("result").innerText = "Gagal: " + data.message;
+        }
+      })
+      .catch(err => {
+        document.getElementById("result").innerText = "Error upload";
+      });
+
+    });
+  </script>
+
+</body>
+</html>
